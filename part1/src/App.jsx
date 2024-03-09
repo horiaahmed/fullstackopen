@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+const Button=({onSmash,text})=><button onClick={onSmash}>{text}</button>
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -11,18 +11,28 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
   ]
-   
+  let number=Math.floor(Math.random()*anecdotes.length)
   const [selected, setSelected] = useState(0)
+  const [votes, setvotes] = useState(new Array(anecdotes.length).fill(0))
+
   const handelanecdotes=()=>{
-    let number=Math.floor(Math.random()*8)
     console.log(number)
-    setSelected(number)
-   } 
+     setSelected(number)
+} 
+const newvotes=()=>{
+  const New_votes={...votes}
+  New_votes[selected]++
+  setvotes(New_votes)
+}
+
 return (
     <div>
       {anecdotes[selected]}
-     <div><button onClick={handelanecdotes}>next anecdote</button></div> 
-     
+      <div>has {votes[selected]} votes</div>
+    <div> 
+      <Button onSmash={newvotes} text="vote"/>
+      <Button onSmash={handelanecdotes} text="next anecdote"/>
+      </div> 
     </div>
   )
 }
