@@ -2,7 +2,22 @@ import { useState } from 'react'
 const Header=({text})=><h1>{text}</h1>
 const Button=({onSmash,text})=><button onClick={onSmash}>{text}</button>
 const Statistics = (props) =><Button onSmash={props.onSmash} text={props.text}/>
-const Values=(props)=>{return <div>{props.text} {props.value}</div>}
+const StatisticLine=(props)=>{return <div>{props.text} {props.value}</div>}
+const Condition=({good,neutral,bad,total,avg,positive})=>{
+ if(good===0&&neutral===0&&bad ===0){
+   return "No Given feedback"
+ }return(
+   <div>
+   <StatisticLine text="good" value={good}/>
+   <StatisticLine text="neutral" value={neutral}/>
+   <StatisticLine text="bad" value={bad}/>
+   <StatisticLine text="all" value={total}/>
+   <StatisticLine text="average" value={avg}/>
+   <StatisticLine text="positive" value={positive}/>
+   </div>
+ )
+
+}
 
 const App = () => {
   const [good, setGood] = useState(0)
@@ -10,10 +25,7 @@ const App = () => {
   const [bad, setBad] = useState(0)
   const total=good+neutral+bad
   const avg=(good+neutral+bad)/3
-  const positive=()=>{
-         if (total===0) {
-             return " "
-          }return(good /total)*100+"%"}
+  const positive=()=>(good /total)*100+"%"
 return (
     <div>
       <Header text="Give Feedback"/>
@@ -21,12 +33,10 @@ return (
        <Statistics onSmash={()=>(setNeutral(neutral+1))} text="neutral"/>
        <Statistics onSmash={()=>(setBad(bad+1))} text="bad"/>
        <Header text="Statistics"/>
-       <Values text="good" value={good}/>
-       <Values text="neutral" value={neutral}/>
-       <Values text="bad" value={bad}/>
-       <Values text="all" value={total}/>
-       <Values text="average" value={avg}/>
-       <Values text="positive" value={positive()}/>
+       <Condition good={good} neutral={neutral} bad={bad}
+       total={total} avg={avg} positive={positive()}/>
+
+     
 </div>
   )
 }
