@@ -1,13 +1,29 @@
-
-
 const Header =(props)=>{
   return <div><h1>{props.course}</h1></div>
 }
-const Content =(C)=>{
-  return <div><p>{C.part1} {C.exercises1}</p>
-  <p>{C.part2} {C.exercises2}</p>
-  <p>{C.part3} {C.exercises3}</p>
+const Part=(props)=>{
+  return <div>
+  <p>
+    {props.name} {props.exercises}
+    </p> 
   </div>
+}
+const Part1=(p1)=>{
+  return <Part name={p1.part1} exercises={p1.exercises1}/>
+}
+const Part2=(p2)=>{
+  return <Part name={p2.part2} exercises={p2.exercises2}/>
+}
+const Part3=(p3)=>{
+  return <Part name={p3.part3} exercises={p3.exercises3}/>
+}
+const Content =(props)=>{
+  return <div>
+    <Part1 part1={props.part1} exercises1={props.exercises1}/>
+    <Part2 part2={props.part2} exercises2={props.exercises2}/>
+    <Part3 part3={props.part3} exercises3={props.exercises3}/>
+
+     </div>
 }
 const Total=(t)=>{
   return <div> <p>Number of exercises {t.total} </p></div>
@@ -29,4 +45,5 @@ const App =()=>{
    <Total total={total}/>
   </div>
 }
+
 export default App;
