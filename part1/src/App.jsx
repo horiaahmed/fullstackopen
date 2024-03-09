@@ -2,7 +2,16 @@ import { useState } from 'react'
 const Header=({text})=><h1>{text}</h1>
 const Button=({onSmash,text})=><button onClick={onSmash}>{text}</button>
 const Statistics = (props) =><Button onSmash={props.onSmash} text={props.text}/>
-const StatisticLine=(props)=>{return <div>{props.text} {props.value}</div>}
+const StatisticLine=(props)=>{return <div>
+ <table >
+   <tbody>
+     <tr>
+       <td>{props.text}</td>
+       <td >{props.value}</td>
+     </tr>
+   </tbody>
+ </table>
+</div>}
 const Condition=({good,neutral,bad,total,avg,positive})=>{
  if(good===0&&neutral===0&&bad ===0){
    return "No Given feedback"
@@ -24,7 +33,7 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
   const total=good+neutral+bad
-  const avg=(good+neutral+bad)/3
+  const avg=(good-bad)/total
   const positive=()=>(good /total)*100+"%"
 return (
     <div>
@@ -35,6 +44,11 @@ return (
        <Header text="Statistics"/>
        <Condition good={good} neutral={neutral} bad={bad}
        total={total} avg={avg} positive={positive()}/>
+
+
+
+
+
 
      
 </div>
