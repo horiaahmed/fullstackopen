@@ -1,3 +1,4 @@
+
 const Header=({text})=><h1>{text}</h1>
 const Part=({parts})=>{
   return <div>
@@ -8,9 +9,12 @@ const Part=({parts})=>{
 
 }
 const Total=({parts})=>{
-  return  <div><h4>total of {parts.reduce( (sum,order) =>
-  sum+order.exercises,0)} exercises
-  </h4> </div>
+  const total=parts.reduce( (sum,order) =>{
+    console.log('what is happening', sum, order)
+     return sum+order.exercises},0)
+  
+ return  <h4>total of {total} exercises</h4>
+    
 }
 const Course=({course})=>{
   return <div>
@@ -51,5 +55,4 @@ const App = () => {
 
   return <Course course={course} />
 }
-
-export default App
+export default App;
