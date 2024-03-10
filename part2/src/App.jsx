@@ -13,7 +13,6 @@ const Course=({course})=>{
     <Part parts={course.parts}/>
     
   </div>
-
 }
 const App = () => {
   const course = {
@@ -41,5 +40,4 @@ const App = () => {
 
   return <Course course={course} />
 }
-
 export default App
