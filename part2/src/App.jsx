@@ -26,10 +26,21 @@ const App = () => {
 
 const AddPersonData = (event) => {
   event.preventDefault()
-  if (persons.some(x => x.name === newName && x.phonenumber===newphoneeumber)) {
-    window.alert(newName+" with "+ newphoneeumber+' is already added to phonebook')
+  if (persons.some(x => x.name === newName )) {
+   if (window.confirm(newName + " is already added to phonebook, replace the old number with a new one?")){
+  
+      const personToUpdate = persons.find(x => x.name === newName)
+      const updatedPerson = { ...personToUpdate, phonenumber: newphoneeumber }
+      ContentService.Update(personToUpdate.id, updatedPerson)
+        .then(() => {
+          setPersons(persons.map(person => person.id === personToUpdate.id ? updatedPerson : person))
+          setNewName("");
+          setNewphone("");
+        })
+       
+   
     
-  }
+  }}
   else {
     const newObject = {
       id: (previousId ? previousId + 1 : 1).toString(),
@@ -45,10 +56,11 @@ const AddPersonData = (event) => {
         setNewphone("") 
       })}
   
-}
+    }
 const filter=persons.filter(x=>x.name.toLowerCase()
 .includes(searchQuery.toLowerCase()))
 
+    
 
 const toDelete = (id,name) => {
   if (window.confirm("Delete "+ name+" ?")){
@@ -83,6 +95,7 @@ return (
   </div>
   )
 }
-   
+
 
 export default App
+
